@@ -1,0 +1,767 @@
+
+Redphonerc · HTML
+Copiar
+
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RedPhone RC – Celulares & Accesorios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red-900: #7a0000;
+  --red-800: #d60000;
+  --red-700: #ff2a2a;
+  --sky-50: #e3f2fd;
+  --sky-100: #d7ecff;
+  --sky-200: #bbdefb;
+  --ink-800: #1d1d1f;
+  --white: #ffffff;
+  --bg: var(--sky-50);
+  --bg-elev: rgba(255,255,255,.72);
+  --panel: color-mix(in srgb, #fff 50%, transparent 50%);
+  --panel-2: #f5f5f7;
+  --text: #1d1d1f;
+  --text-2: rgba(29,29,31,.75);
+  --border: rgba(0,0,0,.08);
+  --shadow-soft: 0 20px 45px rgba(0,0,0,.1);
+  --shadow-strong: 0 30px 70px rgba(0,0,0,.16);
+  --radius-xl: 34px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --transition: .26s cubic-bezier(.2,.8,.2,1);
+  --transition-slow: .52s cubic-bezier(.16,1,.3,1);
+  --focus: 0 0 0 4px rgba(139,0,0,.16);
+  --grad-hero: linear-gradient(135deg, var(--sky-50) 0%, var(--sky-200) 100%);
+  --grad-accent: radial-gradient(1200px 600px at 20% 20%, rgba(187,222,251,.9), transparent 60%),
+    radial-gradient(900px 500px at 85% 10%, rgba(178,0,0,.14), transparent 55%),
+    radial-gradient(900px 600px at 70% 85%, rgba(139,0,0,.12), transparent 55%);
+}
+[data-theme=dark] {
+  --bg: #070a10;
+  --bg-elev: rgba(14,18,28,.62);
+  --panel: color-mix(in srgb, rgba(18,22,34,.92) 50%, transparent 50%);
+  --panel-2: rgba(18,22,34,.92);
+  --text: rgba(255,255,255,.92);
+  --text-2: rgba(255,255,255,.7);
+  --border: rgba(255,255,255,.1);
+  --shadow-soft: 0 22px 55px rgba(0,0,0,.5);
+  --shadow-strong: 0 30px 90px rgba(0,0,0,.6);
+  --grad-hero: linear-gradient(135deg, rgba(11,18,34,1) 0%, rgba(7,10,16,1) 55%, rgba(10,14,22,1) 100%);
+  --grad-accent: radial-gradient(1200px 600px at 20% 20%, rgba(187,222,251,.14), transparent 60%),
+    radial-gradient(900px 500px at 85% 10%, rgba(178,0,0,.22), transparent 55%),
+    radial-gradient(900px 600px at 70% 85%, rgba(187,222,251,.1), transparent 55%);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+::-webkit-scrollbar { display: none; }
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: color .5s, background-color .5s;
+}
+
+/* NAV */
+.nav-wrapper {
+  position: fixed; top: 20px; left: 0; right: 0;
+  display: flex; justify-content: center; z-index: 10000; pointer-events: none;
+}
+.navbar-dock {
+  pointer-events: auto;
+  display: flex; align-items: center; gap: 16px;
+  padding: 8px 16px 8px 24px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.15);
+}
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo-icon { width: 28px; height: 28px; }
+.logo-brand {
+  font-weight: 900; font-size: 1rem;
+  background: linear-gradient(135deg, var(--red-700) 0%, var(--red-800) 50%, var(--red-900) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.dock-item {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; color: var(--text); background: transparent; border: none;
+  cursor: pointer; text-decoration: none;
+  transition: all .2s cubic-bezier(.2,0,0,1);
+}
+.dock-item svg { width: 18px; height: 18px; }
+.dock-item:hover { background: var(--panel-2); transform: scale(1.15) translateY(-2px); }
+.dock-item.ig:hover { color: #e1306c; }
+.dock-item.wa:hover { color: #25d366; }
+.dock-item.theme-btn:hover { color: #5ee7ff; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: var(--grad-hero);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 120px 20px 80px;
+  text-align: center;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--grad-accent); pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: .75rem; font-weight: 900; text-transform: uppercase;
+  letter-spacing: 3px; color: var(--red-800); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red-700); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.6);opacity:.5} }
+.hero-title {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 950; letter-spacing: -3px; line-height: 1;
+  color: var(--text); margin-bottom: 20px;
+}
+.hero-title span {
+  background: linear-gradient(135deg, var(--red-700) 0%, var(--red-800) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-subtitle { font-size: 1.1rem; color: var(--text-2); max-width: 500px; margin: 0 auto 40px; line-height: 1.6; }
+.hero-cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-cta-main {
+  background: var(--red-800); color: #fff; border: none;
+  padding: 14px 32px; border-radius: 999px; font-weight: 800; font-size: 1rem;
+  cursor: pointer; transition: all .3s ease; box-shadow: 0 8px 25px rgba(214,0,0,.35);
+}
+.btn-cta-main:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(214,0,0,.45); }
+.btn-cta-sec {
+  background: var(--bg-elev); color: var(--text); border: 1px solid var(--border);
+  padding: 14px 32px; border-radius: 999px; font-weight: 700; font-size: 1rem;
+  cursor: pointer; transition: all .3s ease; backdrop-filter: blur(10px);
+}
+.btn-cta-sec:hover { transform: translateY(-3px); border-color: var(--red-800); }
+.hero-stats {
+  display: flex; gap: 40px; margin-top: 60px;
+  justify-content: center; flex-wrap: wrap;
+}
+.stat { text-align: center; }
+.stat-num { font-size: 2rem; font-weight: 950; color: var(--text); letter-spacing: -1px; }
+.stat-label { font-size: .75rem; font-weight: 700; color: var(--text-2); text-transform: uppercase; letter-spacing: 1px; }
+.stat-num span { color: var(--red-700); }
+
+/* SECTION */
+.section { padding: 80px 20px; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-label {
+  font-size: .7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 3px;
+  color: var(--red-800); margin-bottom: 10px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900; letter-spacing: -1.5px; color: var(--text);
+}
+.section-title .highlight {
+  background: linear-gradient(135deg, var(--red-700) 0%, var(--red-800) 50%, var(--red-900) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.section-subtitle { color: var(--text-2); margin-top: 10px; font-size: 1rem; }
+
+/* FILTER */
+.filter-container {
+  display: flex; position: relative; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 50px; z-index: 50;
+}
+.filter-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 920px; }
+.filter-btn {
+  background: var(--bg-elev); border: 1px solid var(--border);
+  color: var(--text-2); padding: 10px 22px; border-radius: 999px;
+  font-weight: 700; font-size: .9rem; cursor: pointer; transition: all .3s ease;
+  backdrop-filter: blur(10px);
+}
+.filter-btn:hover { border-color: var(--red-800); color: var(--text); transform: translateY(-1px); }
+.filter-btn.active { background: var(--red-800); color: #fff; border-color: var(--red-800); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+
+/* GRID */
+.container { padding-top: 0; max-width: 1100px; margin: 0 auto; }
+.product-grid {
+  max-width: 1000px; width: 100%;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  justify-content: center; gap: 20px; margin: auto; padding: 0 0 40px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  background: var(--panel); border-radius: 24px; padding: 35px 20px 25px;
+  border: 1px solid var(--border); position: relative; overflow: hidden;
+  transition: all .4s cubic-bezier(.165,.84,.44,1); cursor: pointer;
+  display: flex; flex-direction: column; min-height: 300px;
+  backdrop-filter: blur(10px);
+}
+.product-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.05), transparent);
+  pointer-events: none;
+}
+.product-card:hover { transform: translateY(-8px); border-color: var(--red-900); box-shadow: 0 20px 40px rgba(0,0,0,.15); }
+.card-tags { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
+.tag {
+  font-size: .65rem; font-weight: 900; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 8px; display: flex; align-items: center; gap: 5px;
+}
+.tag.sale { background: #f59e0b; color: #000; box-shadow: 0 4px 10px rgba(245,158,11,.3); }
+.status-badge {
+  position: absolute; top: 15px; right: -35px; transform: rotate(45deg);
+  width: 120px; text-align: center; font-size: .65rem; font-weight: 950;
+  padding: 4px 0; color: #fff; letter-spacing: .5px;
+}
+.status-badge.new { background: #3fc44a; }
+.card-content { text-align: center; margin-top: auto; z-index: 2; }
+.brand-subtitle {
+  font-size: .8rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--red-700); margin-bottom: 4px;
+}
+.model-title { font-size: 1.8rem; font-weight: 900; letter-spacing: -.8px; margin-bottom: 12px; color: var(--text); }
+.specs-container {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px; margin-bottom: 20px;
+}
+.spec-tag {
+  border: 1px solid var(--border); border-radius: 15px; padding: 5px 10px;
+  font-size: .9rem; font-weight: 600; color: var(--text-2);
+}
+.price-section { margin-bottom: 15px; display: flex; align-items: baseline; justify-content: center; gap: 4px; }
+.price-currency { font-size: 1rem; font-weight: 800; color: var(--red-700); }
+.price-amount { font-size: 2.2rem; font-weight: 950; letter-spacing: -1px; }
+.battery-info { display: flex; margin-bottom: 20px; align-items: center; justify-content: center; }
+.battery-info p {
+  font-size: .8rem; font-weight: 700; padding: 4px 12px; margin: 0 8px;
+  color: #22c55e; background: rgba(34,197,94,.1); border-radius: 99px;
+}
+.colors-badges-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-bottom: 12px; }
+.color-badge {
+  font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 8px;
+  text-transform: capitalize; border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+.btn-details {
+  width: 100%; justify-content: center; background: transparent;
+  border: 1px solid var(--border); color: var(--text); padding: 10px 20px;
+  border-radius: 15px; font-weight: 800; display: flex; align-items: center;
+  gap: 8px; transition: all .3s ease; cursor: pointer; font-size: .9rem;
+}
+.product-card:hover .btn-details { background: var(--text); color: var(--panel); }
+
+/* ACCESSORIES */
+.art-card {
+  background: var(--panel); border-radius: 24px; padding: 32px 24px 24px;
+  border: 1px solid var(--border); position: relative;
+  transition: all .3s cubic-bezier(.165,.84,.44,1);
+  cursor: pointer; display: flex; flex-direction: column;
+  justify-content: space-between; overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+.art-card:hover { border-color: var(--text); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,.1); }
+.art-title { font-size: 1.1rem; font-weight: 800; line-height: 1.2; margin-bottom: 16px; color: var(--text); }
+.price-usd { display: flex; align-items: baseline; gap: 4px; }
+.price-usd .symbol { font-size: .8rem; font-weight: 800; color: var(--red-900); }
+.price-usd .val { font-size: 1.5rem; font-weight: 900; }
+.price-ars { font-size: .8rem; font-weight: 600; color: var(--text-2); margin-top: 2px; }
+.price-row { margin-bottom: 20px; }
+.btn-view {
+  width: 100%; padding: 10px; border-radius: 12px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text); font-weight: 700; cursor: pointer; transition: all .2s ease;
+}
+.art-card:hover .btn-view { background: var(--text); color: var(--panel); }
+
+/* FAQ */
+.faq-container { width: 100%; max-width: min(800px, 92%); margin: 60px auto; }
+.faq-header { text-align: center; margin-bottom: 40px; }
+.faq-title { font-size: 2.2rem; font-weight: 900; color: var(--text); margin-bottom: 10px; letter-spacing: -1px; }
+.faq-subtitle { color: var(--text); opacity: .6; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--bg-elev); border: 1px solid var(--border); border-radius: 20px;
+  overflow: hidden; transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+.faq-item:hover { border-color: rgba(255,0,0,.3); }
+.faq-item.is-active { border-color: red; background: var(--panel-2); box-shadow: 0 10px 30px rgba(0,0,0,.1); }
+.faq-question {
+  width: 100%; padding: 20px 24px; display: flex; justify-content: space-between;
+  align-items: center; background: transparent; border: none; color: var(--text);
+  font-size: 1.05rem; font-weight: 600; cursor: pointer; text-align: left; font-family: inherit;
+}
+.faq-icon { width: 20px; height: 20px; transition: transform .4s ease; opacity: .5; }
+.faq-item.is-active .faq-icon { transform: rotate(180deg); opacity: 1; color: red; }
+.faq-answer { max-height: 0; overflow: hidden; transition: all .4s cubic-bezier(.4,0,.2,1); opacity: 0; }
+.faq-item.is-active .faq-answer { max-height: 200px; opacity: 1; }
+.answer-content { padding: 0 24px 24px; color: var(--text); opacity: .8; line-height: 1.6; }
+
+/* MODAL */
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  z-index: 3000; display: flex; justify-content: center; align-items: center;
+  padding: 16px; opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.modal.open { opacity: 1; pointer-events: auto; }
+.modal-content {
+  width: 100%; max-width: 700px; background: var(--panel);
+  border-radius: 32px; border: 1px solid var(--border);
+  position: relative; max-height: 85vh; overflow-y: auto;
+  animation: modalIn .4s cubic-bezier(.16,1,.3,1);
+}
+@keyframes modalIn { 0%{opacity:0;transform:scale(.9)} 100%{opacity:1;transform:scale(1)} }
+.modal-body { padding: 40px 24px; display: flex; flex-direction: column; gap: 30px; }
+.modal-header { text-align: center; }
+.brand-tag { color: var(--red-800); font-weight: 800; letter-spacing: 2px; font-size: .75rem; text-transform: uppercase; }
+.modal-header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px; margin: 5px 0 15px; }
+.main-specs-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+.spec-chip { background: var(--panel-2); border: 1px solid var(--border); padding: 6px 14px; border-radius: 12px; font-size: .9rem; font-weight: 700; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--panel-2); padding: 20px; border-radius: 24px; }
+.info-item { display: flex; flex-direction: column; }
+.label { font-size: .7rem; text-transform: uppercase; color: var(--text-2); font-weight: 700; }
+.value { font-size: 1rem; font-weight: 700; margin-top: 2px; }
+.value.battery { color: #22c55e; }
+.price-main { display: flex; flex-direction: row; gap: 12px; margin-bottom: 20px; justify-content: space-between; }
+.price-box { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-radius: 18px; }
+.price-box.usd { background: var(--red-800); color: #fff; width: 50%; }
+.price-box.ars { background: var(--panel-2); border: 1px solid var(--border); width: 50%; }
+.cur { font-weight: 900; font-size: .9rem; }
+.num { font-size: 1.6rem; font-weight: 950; letter-spacing: -1px; }
+.modal-btn-wa {
+  display: block; background: #25d366; color: #fff; text-decoration: none;
+  padding: 18px; border-radius: 20px; font-weight: 900; transition: .3s;
+  box-shadow: 0 10px 20px rgba(37,211,102,.2); text-align: center;
+}
+.modal-btn-wa:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(37,211,102,.3); }
+.footer-note { font-size: .7rem; color: var(--text-2); margin-top: 12px; text-align: center; }
+.close-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: transparent; border: 1px solid var(--red-800);
+  font-size: 1.2rem; color: var(--text); cursor: pointer; z-index: 10;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s cubic-bezier(.4,0,.2,1);
+}
+.close-btn:hover { background: #fee2e2; color: var(--red-800); transform: rotate(90deg); }
+.installments { margin-top: 10px; }
+.inst-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 16px; }
+.inst-line { flex: 1; height: 1px; background: var(--border); opacity: .5; }
+.inst-header p { color: var(--text-2); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+.inst-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.inst-badge {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 8px; background: var(--panel-2); border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.inst-badge.highlight { border-color: rgba(178,0,0,.3); background: rgba(178,0,0,.05); }
+.inst-count { font-size: .65rem; font-weight: 900; color: var(--text-2); opacity: .8; margin-bottom: 4px; }
+.inst-val { font-size: 1.05rem; font-weight: 900; letter-spacing: -.5px; }
+.modal-colors-wrapper { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.color-badge-modal {
+  font-size: .85rem; font-weight: 800; padding: 6px 16px; border-radius: 12px;
+  text-transform: capitalize; box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  border: 1px solid rgba(255,255,255,.15);
+}
+
+/* WHATSAPP FLOATING */
+.wa-float {
+  position: fixed; bottom: 30px; right: 25px; z-index: 9000;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25d366; color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 25px rgba(37,211,102,.45);
+  transition: all .3s ease; text-decoration: none;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 12px 35px rgba(37,211,102,.55); }
+.wa-float svg { width: 28px; height: 28px; }
+
+/* FOOTER */
+.footer-minimal { width: 100%; padding: 60px 0 40px; background: transparent; margin-top: auto; }
+.footer-content {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+}
+.footer-brand { display: flex; align-items: center; gap: 12px; }
+.brand-text { font-weight: 950; font-size: 1.1rem; letter-spacing: -.5px; color: var(--text); }
+.brand-text span { font-weight: 300; opacity: .6; }
+.footer-center { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.footer-divider { width: 40px; height: 2px; background: var(--red-800); border-radius: 99px; opacity: .3; }
+.copyright { font-size: .75rem; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: .5px; }
+.legal { font-size: .8rem; font-weight: 600; color: var(--text-2); }
+.developer {
+  color: var(--text); font-weight: 800; text-decoration: none; position: relative; transition: all .3s ease;
+}
+.developer::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 1px;
+  background: var(--red-800); transition: width .3s ease;
+}
+.developer:hover::after { width: 100%; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(18px); transition: var(--transition-slow); will-change: transform,opacity; }
+.reveal.show { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media(max-width:480px) {
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 10px; }
+  .product-card { min-height: 240px; padding: 20px; }
+  .model-title { font-size: 1.5rem; }
+  .price-amount { font-size: 1.1rem; }
+  .btn-details { display: none; }
+  .footer-content { flex-direction: column; text-align: center; gap: 30px; }
+  .footer-minimal { padding: 40px 0 100px; }
+  .nav-wrapper { top: auto; bottom: 25px; }
+}
+@media(max-width:768px) {
+  .price-main { flex-direction: column; }
+  .price-box.usd, .price-box.ars { width: 100%; }
+  .modal-header h1 { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav-wrapper">
+  <div class="navbar-dock">
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="8" fill="#d60000"/>
+        <path d="M8 10.5C8 9.12 9.12 8 10.5 8h7C18.88 8 20 9.12 20 10.5v7c0 1.38-1.12 2.5-2.5 2.5h-7C9.12 20 8 18.88 8 17.5v-7z" fill="white" opacity=".9"/>
+        <path d="M11 13.5l1.5 1.5L17 10" stroke="#d60000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-brand">RedPhone RC</span>
+    </div>
+    <a href="#phones" class="dock-item" title="Celulares">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+    </a>
+    <a href="#accessories" class="dock-item" title="Accesorios">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </a>
+    <a href="https://instagram.com" class="dock-item ig" target="_blank" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://wa.me/549XXXXXXXXX" class="dock-item wa" target="_blank" title="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.562 4.14 1.534 5.875L0 24l6.299-1.506A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.939 0-3.762-.523-5.328-1.432l-.38-.226-3.739.893.927-3.638-.248-.397A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    </a>
+    <button class="dock-item theme-btn" onclick="toggleTheme()" title="Cambiar tema">
+      <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot"></span>
+    Río Cuarto · Córdoba
+  </div>
+  <h1 class="hero-title">
+    Tu próximo<br><span>iPhone</span><br>te espera
+  </h1>
+  <p class="hero-subtitle">Celulares premium, accesorios y más. Envíos a todo el país, garantía real y precios imbatibles.</p>
+  <div class="hero-cta-group">
+    <button class="btn-cta-main" onclick="document.getElementById('phones').scrollIntoView({behavior:'smooth'})">Ver catálogo</button>
+    <button class="btn-cta-sec" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">Preguntas frecuentes</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">500<span>+</span></div><div class="stat-label">Clientes felices</div></div>
+    <div class="stat"><div class="stat-num">2<span>+</span></div><div class="stat-label">Años de experiencia</div></div>
+    <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Garantía real</div></div>
+  </div>
+</section>
+
+<!-- PHONES SECTION -->
+<section class="section" id="phones">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Catálogo</div>
+      <h2 class="section-title">Celulares <span class="highlight">disponibles</span></h2>
+      <p class="section-subtitle">Stock actualizado · Precio en dólares · Financiación disponible</p>
+    </div>
+    <div class="filter-container reveal">
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="filterProducts('all', this)">Todos</button>
+        <button class="filter-btn" onclick="filterProducts('iphone', this)">iPhone</button>
+        <button class="filter-btn" onclick="filterProducts('samsung', this)">Samsung</button>
+        <button class="filter-btn" onclick="filterProducts('nuevo', this)">Nuevos</button>
+        <button class="filter-btn" onclick="filterProducts('usado', this)">Usados</button>
+      </div>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- ACCESSORIES SECTION -->
+<section class="section" id="accessories" style="background: var(--panel-2);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Accesorios</div>
+      <h2 class="section-title">Complementa <span class="highlight">tu equipo</span></h2>
+      <p class="section-subtitle">Cargadores, fundas, auriculares y más</p>
+    </div>
+    <div class="product-grid" id="accessories-grid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="faq-container reveal">
+    <div class="faq-header">
+      <h2 class="faq-title">Preguntas <span class="highlight">frecuentes</span></h2>
+      <p class="faq-subtitle">Todo lo que necesitás saber antes de comprar</p>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-minimal">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <svg class="logo-icon" width="32" height="32" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="8" fill="#d60000"/>
+        <path d="M8 10.5C8 9.12 9.12 8 10.5 8h7C18.88 8 20 9.12 20 10.5v7c0 1.38-1.12 2.5-2.5 2.5h-7C9.12 20 8 18.88 8 17.5v-7z" fill="white" opacity=".9"/>
+      </svg>
+      <div class="brand-text">RedPhone <span>RC</span></div>
+    </div>
+    <div class="footer-center">
+      <div class="footer-divider"></div>
+      <div class="copyright">© 2025 RedPhone RC</div>
+    </div>
+    <div class="footer-credits">
+      <span class="legal">Hecho con ❤️ en Río Cuarto</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/549XXXXXXXXX" class="wa-float" target="_blank" title="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.562 4.14 1.534 5.875L0 24l6.299-1.506A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.939 0-3.762-.523-5.328-1.432l-.38-.226-3.739.893.927-3.638-.248-.397A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<!-- MODAL -->
+<div class="modal" id="product-modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// DATA
+const products = [
+  { id:1, brand:'Apple', model:'iPhone 15 Pro Max', storage:'256GB', ram:'8GB', battery:'4422 mAh', condition:'nuevo', price:1050, priceArs:1102500, colors:[{name:'Titanio negro',bg:'#2c2c2e',text:'#fff'},{name:'Titanio blanco',bg:'#e8e8e8',text:'#333'}], category:'iphone' },
+  { id:2, brand:'Apple', model:'iPhone 14', storage:'128GB', ram:'6GB', battery:'3279 mAh', condition:'usado', price:570, priceArs:598500, colors:[{name:'Medianoche',bg:'#1a1a2e',text:'#fff'},{name:'Blanco estrella',bg:'#f5f5f0',text:'#333'}], category:'iphone', sale:true, saleLabel:'OUTLET' },
+  { id:3, brand:'Apple', model:'iPhone 13', storage:'128GB', ram:'4GB', battery:'3227 mAh', condition:'usado', price:430, priceArs:451500, colors:[{name:'Medianoche',bg:'#1a1a2e',text:'#fff'},{name:'Rojo',bg:'#d60000',text:'#fff'}], category:'iphone' },
+  { id:4, brand:'Samsung', model:'Galaxy S24', storage:'256GB', ram:'8GB', battery:'4000 mAh', condition:'nuevo', price:780, priceArs:819000, colors:[{name:'Onyx Black',bg:'#1a1a1a',text:'#fff'},{name:'Marble Gray',bg:'#9e9e9e',text:'#fff'}], category:'samsung' },
+  { id:5, brand:'Apple', model:'iPhone 15', storage:'128GB', ram:'6GB', battery:'3349 mAh', condition:'nuevo', price:820, priceArs:861000, colors:[{name:'Rosa',bg:'#f4c2c2',text:'#333'},{name:'Amarillo',bg:'#f9e4b7',text:'#333'},{name:'Verde',bg:'#b5d8cc',text:'#333'}], category:'iphone' },
+  { id:6, brand:'Samsung', model:'Galaxy A55', storage:'128GB', ram:'8GB', battery:'5000 mAh', condition:'nuevo', price:380, priceArs:399000, colors:[{name:'Azul hielo',bg:'#b0d4e8',text:'#333'},{name:'Negro',bg:'#1a1a1a',text:'#fff'}], category:'samsung' },
+];
+
+const accessories = [
+  { id:1, title:'Cargador MagSafe 15W Original', type:'Cargador', priceUsd:45, priceArs:47250 },
+  { id:2, title:'Funda MagSafe iPhone 15 / 15 Pro', type:'Funda', priceUsd:28, priceArs:29400 },
+  { id:3, title:'AirPods Pro 2da Generación', type:'Auriculares', priceUsd:220, priceArs:231000 },
+  { id:4, title:'Cable USB-C a Lightning 1m', type:'Cable', priceUsd:18, priceArs:18900 },
+];
+
+const faqs = [
+  { q:'¿Los celulares tienen garantía?', a:'Sí, todos nuestros equipos nuevos cuentan con garantía de fábrica de 12 meses. Los usados tienen garantía de 3 meses por nuestra parte.' },
+  { q:'¿Hacen envíos a todo el país?', a:'Sí, enviamos a toda Argentina vía Correo Argentino o OCA. El costo varía según el destino.' },
+  { q:'¿Puedo pagar en cuotas?', a:'Aceptamos transferencia, efectivo y tarjetas de crédito hasta 12 cuotas. Consultanos para saber las opciones disponibles.' },
+  { q:'¿Los celulares son libres?', a:'Todos nuestros equipos son liberados y funcionan con cualquier compañía.' },
+  { q:'¿Cómo puedo contactarlos?', a:'Podés escribirnos por WhatsApp, Instagram o al email. Respondemos en menos de 24 horas.' },
+];
+
+// DOLLAR RATE
+const dolar = 1050;
+
+// RENDER PRODUCTS
+function renderProducts(filter = 'all') {
+  const grid = document.getElementById('product-grid');
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter || p.condition === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card reveal ${p.sale ? 'on-sale' : ''}" onclick="openModal(${p.id})" style="--outlet-color: #f59e0b">
+      ${p.sale ? `<div class="card-tags"><div class="tag sale"><span style="width:5px;height:5px;background:#000;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span>${p.saleLabel}</div></div>` : ''}
+      <div class="status-badge ${p.condition}">${p.condition === 'nuevo' ? 'NUEVO' : ''}</div>
+      <div class="card-content">
+        <div class="brand-subtitle">${p.brand}</div>
+        <div class="model-title">${p.model.replace(p.brand+' ','')}</div>
+        <div class="specs-container">
+          <div class="spec-tag">${p.storage} · ${p.ram} RAM</div>
+        </div>
+        <div class="battery-info"><p>🔋 ${p.battery}</p></div>
+        <div class="colors-badges-wrapper">
+          ${p.colors.map(c=>`<span class="color-badge" style="background:${c.bg};color:${c.text}">${c.name}</span>`).join('')}
+        </div>
+        <div class="price-section">
+          <span class="price-currency">USD</span>
+          <span class="price-amount">${p.price}</span>
+        </div>
+        <button class="btn-details">Ver detalles →</button>
+      </div>
+    </div>
+  `).join('') || `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)">
+    <div style="font-size:3rem;opacity:.3">📦</div>
+    <h2 style="margin:16px 0 8px;color:var(--text)">Sin resultados</h2>
+    <p>No hay productos en esta categoría</p>
+    <button class="btn-details" style="display:inline-flex;margin-top:20px" onclick="filterProducts('all', document.querySelector('.filter-btn'))">Ver todos</button>
+  </div>`;
+  observeReveal();
+}
+
+function renderAccessories() {
+  const grid = document.getElementById('accessories-grid');
+  grid.innerHTML = accessories.map(a => `
+    <div class="art-card reveal" onclick="openAccessoryModal(${a.id})">
+      <div class="header-row"><span style="font-size:.6rem;font-weight:900;text-transform:uppercase;color:var(--text-2);letter-spacing:1px">${a.type}</span></div>
+      <div class="art-title">${a.title}</div>
+      <div class="price-row">
+        <div class="price-usd"><span class="symbol">USD</span><span class="val">${a.priceUsd}</span></div>
+        <div class="price-ars">ARS ${a.priceArs.toLocaleString('es-AR')}</div>
+      </div>
+      <button class="btn-view">Consultar →</button>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+function renderFAQ() {
+  const list = document.getElementById('faq-list');
+  list.innerHTML = faqs.map((f,i) => `
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-question" onclick="toggleFaq(${i})">
+        ${f.q}
+        <span class="faq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+      <div class="faq-answer"><div class="answer-content">${f.a}</div></div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(i) {
+  const item = document.getElementById('faq-'+i);
+  item.classList.toggle('is-active');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+function openModal(id) {
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  const waMsg = encodeURIComponent(`Hola! Me interesa el ${p.brand} ${p.model} ${p.storage}. ¿Está disponible?`);
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-header">
+      <div class="brand-tag">${p.brand} · ${p.condition.toUpperCase()}</div>
+      <h1>${p.model}</h1>
+      <div class="main-specs-container">
+        <span class="spec-chip">${p.storage}</span>
+        <span class="spec-chip">${p.ram} RAM</span>
+        <span class="spec-chip">🔋 ${p.battery}</span>
+      </div>
+    </div>
+    <div class="info-grid">
+      <div class="info-item"><span class="label">Marca</span><span class="value">${p.brand}</span></div>
+      <div class="info-item"><span class="label">Modelo</span><span class="value">${p.model}</span></div>
+      <div class="info-item"><span class="label">Almacenamiento</span><span class="value">${p.storage}</span></div>
+      <div class="info-item"><span class="label">RAM</span><span class="value">${p.ram}</span></div>
+      <div class="info-item"><span class="label">Batería</span><span class="value battery">${p.battery}</span></div>
+      <div class="info-item"><span class="label">Estado</span><span class="value">${p.condition.charAt(0).toUpperCase()+p.condition.slice(1)}</span></div>
+    </div>
+    <div>
+      <div class="modal-colors-wrapper">
+        ${p.colors.map(c=>`<span class="color-badge-modal" style="background:${c.bg};color:${c.text}">${c.name}</span>`).join('')}
+      </div>
+    </div>
+    <div class="price-main">
+      <div class="price-box usd"><span class="cur">USD</span><span class="num">${p.price}</span></div>
+      <div class="price-box ars"><span class="cur" style="color:var(--text-2)">ARS</span><span class="num">${p.priceArs.toLocaleString('es-AR')}</span></div>
+    </div>
+    <div class="installments">
+      <div class="inst-header"><div class="inst-line"></div><p>Financiación</p><div class="inst-line"></div></div>
+      <div class="inst-grid">
+        <div class="inst-badge"><span class="inst-count">3 cuotas</span><span class="inst-val">$ ${Math.round(p.priceArs/3).toLocaleString('es-AR')}</span></div>
+        <div class="inst-badge"><span class="inst-count">6 cuotas</span><span class="inst-val">$ ${Math.round(p.priceArs/6).toLocaleString('es-AR')}</span></div>
+        <div class="inst-badge highlight"><span class="inst-count">9 cuotas</span><span class="inst-val">$ ${Math.round(p.priceArs/9).toLocaleString('es-AR')}</span></div>
+        <div class="inst-badge highlight"><span class="inst-count">12 cuotas</span><span class="inst-val">$ ${Math.round(p.priceArs/12).toLocaleString('es-AR')}</span></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="https://wa.me/549XXXXXXXXX?text=${waMsg}" class="modal-btn-wa" target="_blank">💬 Consultar por WhatsApp</a>
+      <p class="footer-note">Respondemos en menos de 24 hs · Envíos a todo el país</p>
+    </div>
+  `;
+  document.getElementById('product-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openAccessoryModal(id) {
+  const a = accessories.find(x=>x.id===id);
+  if(!a) return;
+  const waMsg = encodeURIComponent(`Hola! Me interesa el accesorio: ${a.title}. ¿Está disponible?`);
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-header" style="text-align:center">
+      <div class="brand-tag">${a.type}</div>
+      <h1 style="font-size:1.8rem;font-weight:900;margin:10px 0">${a.title}</h1>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin:10px 0">
+      <div class="price-box usd" style="width:100%"><span class="cur">USD</span><span class="num">${a.priceUsd}</span></div>
+      <div class="price-box ars" style="width:100%"><span class="cur" style="color:var(--text-2)">ARS</span><span class="num">${a.priceArs.toLocaleString('es-AR')}</span></div>
+    </div>
+    <div class="modal-footer" style="margin-top:10px">
+      <a href="https://wa.me/549XXXXXXXXX?text=${waMsg}" class="modal-btn-wa" target="_blank">💬 Consultar por WhatsApp</a>
+      <p class="footer-note">Respondemos en menos de 24 hs</p>
+    </div>
+  `;
+  document.getElementById('product-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('product-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('product-modal').addEventListener('click', e => { if(e.target === e.currentTarget) closeModal(); });
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').innerHTML = isDark
+    ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+    : '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+}
+
+function observeReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal:not(.show)').forEach(el => obs.observe(el));
+}
+
+// INIT
+renderProducts();
+renderAccessories();
+renderFAQ();
+observeReveal();
+</script>
+</body>
+</html>
