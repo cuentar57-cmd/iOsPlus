@@ -252,11 +252,33 @@ body {
 }
 .btn-details {
   width: 100%; justify-content: center; background: transparent;
-  border: 1px solid var(--border); color: var(--text); padding: 10px 20px;
+  border: 1px solid var(--border); color: var(--text); padding: 11px 20px;
   border-radius: 15px; font-weight: 800; display: flex; align-items: center;
-  gap: 8px; transition: all .3s ease; cursor: pointer; font-size: .9rem;
+  gap: 8px; cursor: pointer; font-size: .9rem;
+  position: relative; overflow: hidden;
+  transition: color .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
-.product-card:hover .btn-details { background: var(--text); color: var(--panel); }
+.btn-details::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--red-700), var(--red-900));
+  transform: translateY(100%);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+  z-index: 0;
+}
+.btn-details .btn-text { position: relative; z-index: 1; }
+.btn-details .btn-arrow {
+  position: relative; z-index: 1;
+  display: inline-block;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.product-card:hover .btn-details {
+  color: #fff;
+  border-color: var(--red-800);
+  box-shadow: 0 6px 20px rgba(214,0,0,.35);
+}
+.product-card:hover .btn-details::before { transform: translateY(0); }
+.product-card:hover .btn-details .btn-arrow { transform: translateX(5px); }
 
 /* ACCESSORIES */
 .art-card {
@@ -465,7 +487,9 @@ body {
   .product-card { min-height: 240px; padding: 20px; }
   .model-title { font-size: 1.5rem; }
   .price-amount { font-size: 1.1rem; }
-  .btn-details { display: none; }
+  .btn-details { display: flex; }
+  .btn-details { color: #fff; border-color: var(--red-800); }
+  .btn-details::before { transform: translateY(0); }
   .footer-content { flex-direction: column; text-align: center; gap: 30px; }
   .footer-minimal { padding: 40px 0 100px; }
   .nav-wrapper { top: auto; bottom: 25px; }
@@ -668,7 +692,7 @@ function renderProducts(filter = 'all') {
           <span class="price-currency">USD</span>
           <span class="price-amount">${p.price}</span>
         </div>
-        <button class="btn-details">Ver detalles →</button>
+        <button class="btn-details"><span class="btn-text">Ver detalles</span><span class="btn-arrow">→</span></button>
       </div>
     </div>
   `).join('') || `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-2)">
